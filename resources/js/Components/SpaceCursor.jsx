@@ -1,0 +1,62 @@
+import { useEffect, useRef } from 'react';
+
+export default function SpaceCursor() {
+    const cursorRef = useRef(null);
+    const dotRef = useRef(null);
+
+    useEffect(() => {
+        const finePointer = window.matchMedia('(pointer: fine)').matches;
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (!finePointer || reducedMotion) {
+            return undefined;
+        }
+
+        const cursor = cursorRef.current;
+        const dot = dotRef.current;
+        let pointerX = window.innerWidth / 2;
+        let pointerY = window.innerHeight / 2;
+        let ringX = pointerX;
+        let ringY = pointerY;
+        let frame;
+
+        document.documentElement.classList.add('has-space-cursor');
+
+        const move = (event) => {
+            pointerX = event.clientX;
+            pointerY = event.clientY;
+            dot.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
+        };
+
+        const animate = () => {
+            ringX += (pointerX - ringX) * 0.18;
+            ringY += (pointerY - ringY) * 0.18;
+            cursor.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+            frame = window.requestAnimationFrame(animate);
+        };
+
+        const setInteractive = (event) => {
+            const active = Boolean(event.target.closest('a, button, input, textarea, select, label, [role="button"]'));
+            cursor.classList.toggle('is-interactive', active);
+            dot.classList.toggle('is-interactive', active);
+        };
+
+        window.addEventListener('pointermove', move);
+        window.addEventListener('pointerover', setInteractive);
+        animate();
+
+        return () => {
+            document.documentElement.classList.remove('has-space-cursor');
+            window.cancelAnimationFrame(frame);
+            window.removeEventListener('pointermove', move);
+            window.removeEventListener('pointerover', setInteractive);
+        };
+    }, []);
+
+    return (
+        <>
+            <span ref={cursorRef} className="space-cursor-ring" aria-hidden="true" />
+            <span ref={dotRef} className="space-cursor-dot" aria-hidden="true" />
+        </>
+    );
+}

@@ -1,58 +1,370 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Portfolio Rafly Faldiansyah Putra
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Website portfolio modern fullstack berbasis Laravel, React Inertia, Tailwind CSS, MySQL, dan Vite. Project ini memiliki halaman portfolio publik dengan tema dark futuristic, particle space background, custom cursor, video showcase project, serta admin dashboard untuk mengelola konten secara dinamis.
 
-## About Laravel
+## Tech Stack
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Laravel
+- React via Inertia.js
+- Tailwind CSS
+- Framer Motion
+- MySQL
+- Vite
+- Laravel session authentication
+- Laravel storage upload
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Fitur Utama
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Portfolio publik responsive untuk mobile, tablet, dan desktop
+- Dark mode futuristic dengan glassmorphism
+- Animated space particle background
+- Custom glowing cursor bertema space
+- Smooth scrolling dan section transition animation
+- Navbar modern dengan dropdown Download CV
+- Hero, About, Skills, Experience, Projects, Contact, dan Footer
+- Project card dengan video autoplay muted loop dan thumbnail fallback
+- Skill/tech stack dengan logo masing-masing
+- Admin dashboard SaaS style
+- Login/logout admin tanpa Breeze atau Jetstream
+- CRUD konten home
+- CRUD project portfolio
+- CRUD skills dan logo tech
+- CRUD experience timeline
+- CRUD CV Bahasa Indonesia dan CV English
+- Update profile admin, foto profile, nama, username, email, dan password
 
-## Learning Laravel
+## Admin Default
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Seeder membuat admin default:
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+```txt
+Username: rafly
+Password: rfp
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Password dibuat dengan Laravel Hash, bukan plaintext di database.
 
-## Contributing
+## Route Penting
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Public:
 
-## Code of Conduct
+```txt
+/                       Portfolio home
+/cv/id/download          Download CV Bahasa Indonesia
+/cv/en/download          Download CV English
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Authentication:
 
-## Security Vulnerabilities
+```txt
+/login                   Login admin
+/logout                  Logout admin, method POST
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Admin:
 
-## License
+```txt
+/admin                   Dashboard
+/admin/home-content      Edit teks dan konten section home
+/admin/cvs               Upload dan kelola CV ID/EN
+/admin/projects          CRUD project
+/admin/skills            CRUD skill dan logo
+/admin/experiences       CRUD experience
+/admin/profile           Update profile admin
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Struktur Folder Penting
+
+```txt
+app/
+  Http/Controllers/
+    Admin/
+      CvController.php
+      ExperienceController.php
+      HomeContentController.php
+      ProjectController.php
+      ProfileController.php
+      SkillController.php
+    AuthController.php
+    CvDownloadController.php
+  Models/
+    PortfolioCv.php
+    PortfolioExperience.php
+    PortfolioHomeContent.php
+    PortfolioSkill.php
+    Project.php
+    User.php
+  Support/
+    PortfolioContent.php
+
+database/
+  migrations/
+  seeders/
+    AdminSeeder.php
+    DatabaseSeeder.php
+    ProjectSeeder.php
+
+resources/js/
+  Components/
+    Admin/
+    Navbar.jsx
+    ProjectCard.jsx
+    SpaceBackground.jsx
+    SpaceCursor.jsx
+    TechLogo.jsx
+  Layouts/
+    AdminLayout.jsx
+    PortfolioLayout.jsx
+  Pages/
+    Admin/
+    Home.jsx
+  Sections/
+
+resources/css/
+  app.css
+
+public/videos/
+  msj.mp4
+  reminder.mp4
+  berita.mp4
+  company.mp4
+```
+
+## Setup Local
+
+Install dependency PHP dan JavaScript:
+
+```bash
+composer install
+npm install
+```
+
+Copy environment:
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+Sesuaikan database MySQL di `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=portfolio_cak
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Buat database jika belum ada:
+
+```bash
+mysql -u root -e "CREATE DATABASE IF NOT EXISTS portfolio_cak CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+```
+
+Jalankan migration dan seeder:
+
+```bash
+php artisan migrate --seed
+```
+
+Buat storage symlink untuk file upload:
+
+```bash
+php artisan storage:link
+```
+
+Jalankan development server:
+
+```bash
+php artisan serve
+npm run dev
+```
+
+Buka:
+
+```txt
+http://127.0.0.1:8000
+```
+
+## Build Production
+
+```bash
+npm run build
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+Pastikan server web mengarah ke folder `public/`.
+
+## Database dan Seeder
+
+Seeder utama:
+
+- `AdminSeeder`: membuat admin default `rafly`
+- `ProjectSeeder`: membuat data project awal
+- `DatabaseSeeder`: memanggil seeder dan mengisi konten default home, skills, experience, dan CV
+
+Konten default home tersimpan di tabel:
+
+```txt
+portfolio_home_contents
+```
+
+CV tersimpan di:
+
+```txt
+portfolio_cvs
+```
+
+Project admin tersimpan di:
+
+```txt
+projects
+```
+
+Skills dan experience home tersimpan di:
+
+```txt
+portfolio_skills
+portfolio_experiences
+```
+
+## Upload File
+
+File upload disimpan ke disk `public` Laravel.
+
+Lokasi storage:
+
+```txt
+storage/app/public/
+```
+
+URL publik melalui symlink:
+
+```txt
+public/storage -> storage/app/public
+```
+
+Validasi upload:
+
+- Project video: `mp4`, max 50MB
+- Project thumbnail: `jpg`, `jpeg`, `png`, `webp`, max 5MB
+- Profile photo: `jpg`, `jpeg`, `png`, `webp`, max 4MB
+- CV: `pdf`, `doc`, `docx`, max 10MB
+
+Jangan commit file upload user ke repository.
+
+## Space Particle Theme
+
+Efek ruang angkasa dibuat tanpa library tambahan agar bundle tetap ringan.
+
+File utama:
+
+- `resources/js/Components/SpaceBackground.jsx`: canvas starfield, parallax pointer, twinkle stars, constellation line, dan render loop.
+- `resources/js/Components/SpaceCursor.jsx`: cursor custom dengan glowing dot dan ring.
+- `resources/js/Layouts/PortfolioLayout.jsx`: memasang background dan cursor di website publik.
+- `resources/css/app.css`: nebula gradient, shooting star animation, custom cursor style, dan reduced-motion fallback.
+
+Yang diperlukan dalam pembuatannya:
+
+- React `useEffect` dan `useRef` untuk lifecycle canvas dan cursor.
+- Canvas 2D API untuk menggambar partikel/bintang real time.
+- CSS keyframes untuk shooting stars.
+- CSS media query `prefers-reduced-motion` agar animasi aman untuk user sensitif motion.
+- CSS media query `pointer: fine` agar custom cursor hanya aktif di desktop/mouse.
+- Tailwind utility class untuk layering, blur, glassmorphism, dan responsive layout.
+
+Cara mengatur intensitas:
+
+- Ubah `STAR_LAYERS` di `SpaceBackground.jsx` untuk jumlah, ukuran, dan kecepatan bintang.
+- Ubah `.space-nebula` di `resources/css/app.css` untuk warna galaksi.
+- Ubah `.shooting-star-*` untuk posisi, delay, dan durasi meteor.
+- Ubah `.space-cursor-ring` dan `.space-cursor-dot` untuk ukuran dan warna cursor.
+
+Catatan:
+
+- Background memakai `pointer-events-none`, jadi tidak mengganggu klik button, card, dan navbar.
+- Canvas membatasi device pixel ratio maksimal `2` agar tetap tajam tanpa terlalu berat.
+- Event listener dan animation frame dibersihkan saat component unmount.
+
+## Admin Dashboard
+
+Admin dashboard memakai Inertia form dan Laravel validation. Semua route admin dilindungi middleware `auth`.
+
+Keamanan auth:
+
+- Password di-hash dengan Laravel Hash
+- Login memakai session authentication
+- Session regenerate setelah login
+- Session invalidate saat logout
+- CSRF protection dari Laravel web middleware
+- Rate limiting login
+- Validasi backend untuk semua form
+- Tidak ada password hardcoded di frontend
+
+## Testing
+
+Jalankan test:
+
+```bash
+php artisan test
+```
+
+Test saat ini mencakup:
+
+- Home page response
+- CRUD project create/update
+- Update profile admin
+- Upload dan download CV
+
+## Catatan Git
+
+File yang wajib dipush:
+
+- `app/`
+- `database/migrations/`
+- `database/seeders/`
+- `resources/`
+- `routes/`
+- `tests/`
+- `composer.json`
+- `composer.lock`
+- `package.json`
+- `package-lock.json`
+- `vite.config.js`
+
+File yang tidak perlu dipush:
+
+- `.env`
+- `vendor/`
+- `node_modules/`
+- file upload di `storage/app/public/`
+- cache Laravel
+
+## Maintenance
+
+Command yang sering dipakai:
+
+```bash
+php artisan migrate --seed
+php artisan storage:link
+php artisan route:list
+php artisan config:clear
+php artisan test
+npm run build
+```
+
+Jika perubahan `.env` tidak terbaca:
+
+```bash
+php artisan config:clear
+```
+
+Jika upload tidak bisa dibuka:
+
+```bash
+php artisan storage:link
+```
