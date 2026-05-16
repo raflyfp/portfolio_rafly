@@ -1,20 +1,22 @@
 import { motion } from 'framer-motion';
 import SectionHeader from '../Components/SectionHeader';
 
-const highlights = [
-    { value: 'Fullstack', label: 'Laravel, React, API, deployment workflow' },
-    { value: 'Dashboard', label: 'Management system dan monitoring dokumen' },
-    { value: 'Responsive', label: 'UI modern untuk mobile, tablet, desktop' },
-];
+export default function AboutSection({ content }) {
+    const highlights = (content.about_highlights || '')
+        .split('\n')
+        .map((line) => {
+            const [value, label] = line.split('|');
+            return { value: value?.trim(), label: label?.trim() };
+        })
+        .filter((item) => item.value && item.label);
 
-export default function AboutSection() {
     return (
         <section id="about" className="px-4 py-24 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-6xl">
                 <SectionHeader
-                    eyebrow="About Me"
-                    title="Membangun produk web yang rapi, cepat, dan mudah dipakai."
-                    description="Saya menggabungkan backend yang stabil dengan UI yang bersih untuk membuat aplikasi operasional yang nyaman digunakan setiap hari."
+                    eyebrow={content.about_eyebrow}
+                    title={content.about_title}
+                    description={content.about_description}
                 />
 
                 <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
@@ -26,12 +28,10 @@ export default function AboutSection() {
                         className="rounded-[28px] border border-white/10 bg-white/[0.045] p-7 backdrop-blur-xl"
                     >
                         <p className="text-lg leading-9 text-zinc-300">
-                            Rafly Faldiansyah Putra adalah Fullstack Developer yang fokus pada pengembangan aplikasi
-                            web modern menggunakan Laravel, React, MySQL, dan Docker.
+                            {content.about_body}
                         </p>
                         <p className="mt-5 text-base leading-8 text-zinc-500">
-                            Berpengalaman membangun dashboard management system, sistem monitoring, reminder dokumen,
-                            dan aplikasi berbasis web dengan UI modern serta responsive.
+                            {content.about_secondary}
                         </p>
                     </motion.div>
 

@@ -1,8 +1,11 @@
 import { Code2, Radio } from 'lucide-react';
 import { motion } from 'framer-motion';
 import ActionLink from './ActionLink';
+import TechLogo from './TechLogo';
 
-export default function ProjectCard({ project, index }) {
+const normalize = (value) => value.toLowerCase().replace(/\s+js$/, '').trim();
+
+export default function ProjectCard({ project, index, skillLogos = {} }) {
     return (
         <motion.article
             initial={{ opacity: 0, y: 28 }}
@@ -53,8 +56,9 @@ export default function ProjectCard({ project, index }) {
                     {project.stack.map((tech) => (
                         <span
                             key={tech}
-                            className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-zinc-300"
+                            className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs font-medium text-zinc-300"
                         >
+                            <TechLogo name={tech} logoUrl={skillLogos[tech.toLowerCase()] || skillLogos[normalize(tech)]} className="h-4 w-4" />
                             {tech}
                         </span>
                     ))}

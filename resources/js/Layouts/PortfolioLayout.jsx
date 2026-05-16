@@ -1,6 +1,6 @@
 import Navbar from '../Components/Navbar';
 
-export default function PortfolioLayout({ children }) {
+export default function PortfolioLayout({ children, cvFiles = [] }) {
     return (
         <div className="min-h-screen overflow-hidden bg-[#050506] text-white antialiased">
             <div className="pointer-events-none fixed inset-0 z-0">
@@ -10,7 +10,7 @@ export default function PortfolioLayout({ children }) {
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.08),transparent_32%),linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:auto,72px_72px,72px_72px]" />
             </div>
 
-            <Navbar />
+            <Navbar cvFiles={cvFiles} />
             <main className="relative z-10">{children}</main>
         </div>
     );

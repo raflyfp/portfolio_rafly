@@ -7,16 +7,16 @@ class PortfolioContent
     public static function skills(): array
     {
         return [
-            'Laravel',
-            'PHP',
-            'React JS',
-            'JavaScript',
-            'MySQL',
-            'Docker',
-            'Tailwind CSS',
-            'REST API',
-            'Git',
-            'Linux',
+            ['name' => 'Laravel', 'logo_url' => 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg'],
+            ['name' => 'PHP', 'logo_url' => 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg'],
+            ['name' => 'React JS', 'logo_url' => 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg'],
+            ['name' => 'JavaScript', 'logo_url' => 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg'],
+            ['name' => 'MySQL', 'logo_url' => 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg'],
+            ['name' => 'Docker', 'logo_url' => 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg'],
+            ['name' => 'Tailwind CSS', 'logo_url' => 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg'],
+            ['name' => 'REST API', 'logo_url' => ''],
+            ['name' => 'Git', 'logo_url' => 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg'],
+            ['name' => 'Linux', 'logo_url' => 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg'],
         ];
     }
 

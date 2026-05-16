@@ -1,14 +1,14 @@
 import { motion } from 'framer-motion';
 import SectionHeader from '../Components/SectionHeader';
 
-export default function ExperienceSection({ experiences }) {
+export default function ExperienceSection({ experiences, content }) {
     return (
         <section id="experience" className="px-4 py-24 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-5xl">
                 <SectionHeader
-                    eyebrow="Experience"
-                    title="Pengalaman yang dekat dengan kebutuhan produk operasional."
-                    description="Mulai dari perancangan backend, dashboard admin, monitoring data, sampai tampilan frontend yang polished."
+                    eyebrow={content.experience_eyebrow}
+                    title={content.experience_title}
+                    description={content.experience_description}
                 />
 
                 <div className="relative">

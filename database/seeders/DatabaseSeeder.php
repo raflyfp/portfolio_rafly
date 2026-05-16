@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\PortfolioExperience;
+use App\Models\PortfolioCv;
+use App\Models\PortfolioHomeContent;
 use App\Models\PortfolioProject;
 use App\Models\PortfolioSkill;
 use App\Support\PortfolioContent;
@@ -23,10 +25,16 @@ class DatabaseSeeder extends Seeder
             ProjectSeeder::class,
         ]);
 
+        PortfolioHomeContent::seedDefaults();
+        PortfolioCv::seedDefaults();
+
         foreach (PortfolioContent::skills() as $index => $skill) {
             PortfolioSkill::updateOrCreate(
-                ['name' => $skill],
-                ['sort_order' => $index + 1],
+                ['name' => $skill['name']],
+                [
+                    'logo_url' => $skill['logo_url'],
+                    'sort_order' => $index + 1,
+                ],
             );
         }
 

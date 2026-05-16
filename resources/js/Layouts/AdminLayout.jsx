@@ -1,11 +1,15 @@
 import { Link, router, usePage } from '@inertiajs/react';
-import { FolderKanban, LayoutDashboard, LogOut, Menu, UserCircle, X } from 'lucide-react';
+import { BriefcaseBusiness, FileText, FolderKanban, LayoutDashboard, LogOut, Menu, PanelsTopLeft, Sparkles, UserCircle, X } from 'lucide-react';
 import { useState } from 'react';
 import Toast from '../Components/Admin/Toast';
 
 const navItems = [
     { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
+    { label: 'Home Content', href: '/admin/home-content', icon: PanelsTopLeft },
+    { label: 'CV Files', href: '/admin/cvs', icon: FileText },
     { label: 'Projects', href: '/admin/projects', icon: FolderKanban },
+    { label: 'Skills', href: '/admin/skills', icon: Sparkles },
+    { label: 'Experience', href: '/admin/experiences', icon: BriefcaseBusiness },
     { label: 'Profile', href: '/admin/profile', icon: UserCircle },
 ];
 
@@ -63,7 +67,7 @@ export default function AdminLayout({ title, children }) {
                 <nav className="mt-8 grid gap-2">
                     {navItems.map((item) => {
                         const Icon = item.icon;
-                        const active = window.location.pathname === item.href;
+                        const active = window.location.pathname === item.href || window.location.pathname.startsWith(`${item.href}/`);
 
                         return (
                             <Link

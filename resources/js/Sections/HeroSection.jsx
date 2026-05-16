@@ -2,11 +2,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowDown, Code2, Database, ServerCog } from 'lucide-react';
 import ActionLink from '../Components/ActionLink';
 
-const stackPills = ['Laravel', 'React', 'MySQL', 'Docker'];
-
-export default function HeroSection() {
+export default function HeroSection({ content }) {
     const { scrollYProgress } = useScroll();
     const y = useTransform(scrollYProgress, [0, 1], [0, -120]);
+    const stackPills = (content.hero_stack || '').split(',').map((item) => item.trim()).filter(Boolean);
 
     return (
         <section id="home" className="relative flex min-h-screen items-center px-4 pb-20 pt-32 sm:px-6 lg:px-8">
@@ -20,15 +19,14 @@ export default function HeroSection() {
                 >
                     <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm text-zinc-300 backdrop-blur-xl">
                         <span className="h-2 w-2 rounded-full bg-emerald-300 shadow-[0_0_18px_rgba(110,231,183,0.85)]" />
-                        Fullstack Developer
+                        {content.hero_badge}
                     </div>
 
                     <h1 className="mt-7 max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
-                        Rafly Faldiansyah Putra
+                        {content.hero_title}
                     </h1>
                     <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-400 sm:text-xl">
-                        Seorang Fullstack Developer yang fokus pada pengembangan aplikasi web modern menggunakan
-                        Laravel, React, MySQL, dan Docker.
+                        {content.hero_description}
                     </p>
 
                     <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -65,7 +63,7 @@ export default function HeroSection() {
                                 <span className="h-3 w-3 rounded-full bg-emerald-300" />
                             </div>
                             <span className="text-xs font-semibold uppercase tracking-[0.22em] text-zinc-500">
-                                Build System
+                                {content.hero_panel_label}
                             </span>
                         </div>
 
@@ -92,8 +90,7 @@ export default function HeroSection() {
 
                         <div className="rounded-3xl border border-cyan-300/20 bg-cyan-300/10 p-5">
                             <p className="text-sm leading-7 text-cyan-50">
-                                Dashboard management system, monitoring workflow, dan aplikasi web responsive dengan
-                                antarmuka modern.
+                                {content.hero_panel_note}
                             </p>
                         </div>
                     </div>

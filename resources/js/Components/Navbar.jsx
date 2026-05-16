@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { ChevronDown, Download, Menu, X } from 'lucide-react';
 
 const navItems = [
     { label: 'About', href: '#about' },
@@ -9,8 +9,9 @@ const navItems = [
     { label: 'Contact', href: '#contact' },
 ];
 
-export default function Navbar() {
+export default function Navbar({ cvFiles = [] }) {
     const [isOpen, setIsOpen] = useState(false);
+    const [cvOpen, setCvOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
 
     useEffect(() => {
@@ -21,7 +22,11 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', onScroll);
     }, []);
 
-    const closeMenu = () => setIsOpen(false);
+    const downloadableCvs = cvFiles.filter((cv) => cv.download_url);
+    const closeMenu = () => {
+        setIsOpen(false);
+        setCvOpen(false);
+    };
 
     return (
         <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6 lg:px-8">
@@ -53,12 +58,38 @@ export default function Navbar() {
                     ))}
                 </div>
 
-                <a
-                    href="#contact"
-                    className="hidden rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/20 md:inline-flex"
-                >
-                    Hire Me
-                </a>
+                <div className="relative hidden md:block">
+                    <button
+                        type="button"
+                        onClick={() => setCvOpen((value) => !value)}
+                        className="inline-flex items-center gap-2 rounded-full border border-cyan-300/25 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-100 transition hover:bg-cyan-300/20"
+                    >
+                        <Download className="h-4 w-4" />
+                        Download CV
+                        <ChevronDown className="h-4 w-4" />
+                    </button>
+
+                    {cvOpen && (
+                        <div className="absolute right-0 mt-3 w-56 overflow-hidden rounded-2xl border border-white/10 bg-zinc-950/95 p-2 shadow-2xl shadow-black/40 backdrop-blur-xl">
+                            {downloadableCvs.length > 0 ? (
+                                downloadableCvs.map((cv) => (
+                                    <a
+                                        key={cv.language}
+                                        href={cv.download_url}
+                                        onClick={() => setCvOpen(false)}
+                                        className="block rounded-xl px-3 py-3 text-sm font-medium text-zinc-300 transition hover:bg-white/[0.06] hover:text-white"
+                                    >
+                                        {cv.title || cv.label}
+                                    </a>
+                                ))
+                            ) : (
+                                <span className="block rounded-xl px-3 py-3 text-sm text-zinc-500">
+                                    CV belum tersedia
+                                </span>
+                            )}
+                        </div>
+                    )}
+                </div>
 
                 <button
                     type="button"
@@ -82,6 +113,25 @@ export default function Navbar() {
                             {item.label}
                         </a>
                     ))}
+                    <div className="grid gap-2 border-t border-white/10 pt-2">
+                        <p className="px-4 pt-2 text-xs font-bold uppercase tracking-[0.22em] text-cyan-300/70">
+                            Download CV
+                        </p>
+                        {downloadableCvs.length > 0 ? (
+                            downloadableCvs.map((cv) => (
+                                <a
+                                    key={cv.language}
+                                    href={cv.download_url}
+                                    onClick={closeMenu}
+                                    className="rounded-2xl px-4 py-3 text-sm font-medium text-zinc-300 transition hover:bg-white/[0.06] hover:text-white"
+                                >
+                                    {cv.title || cv.label}
+                                </a>
+                            ))
+                        ) : (
+                            <span className="rounded-2xl px-4 py-3 text-sm text-zinc-500">CV belum tersedia</span>
+                        )}
+                    </div>
                 </div>
             )}
         </header>
