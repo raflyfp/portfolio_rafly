@@ -6,7 +6,7 @@ import Modal from '../../../Components/Admin/Modal';
 import TechLogo from '../../../Components/TechLogo';
 import AdminLayout from '../../../Layouts/AdminLayout';
 
-const emptyForm = { _method: '', name: '', logo_url: '', sort_order: 0 };
+const emptyForm = { _method: '', name: '', logo_url: '', logo_file: null, sort_order: 0 };
 
 export default function SkillsIndex({ skills, filters }) {
     const [search, setSearch] = useState(filters.search || '');
@@ -38,6 +38,7 @@ export default function SkillsIndex({ skills, filters }) {
             _method: 'put',
             name: skill.name,
             logo_url: skill.logo_url || '',
+            logo_file: null,
             sort_order: skill.sort_order || 0,
         });
         setModalOpen(true);
@@ -155,6 +156,18 @@ export default function SkillsIndex({ skills, filters }) {
                         <span className="text-sm font-medium text-zinc-300">Logo URL</span>
                         <input value={data.logo_url} onChange={(event) => setData('logo_url', event.target.value)} className="mt-2 w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-white outline-none transition focus:border-cyan-300/40" placeholder="https://cdn.jsdelivr.net/..." />
                         <FieldError message={errors.logo_url} />
+                    </label>
+                    <label className="block">
+                        <span className="text-sm font-medium text-zinc-300">Upload Logo</span>
+                        <input
+                            key={editing?.id || 'new-skill-logo'}
+                            type="file"
+                            accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                            onChange={(event) => setData('logo_file', event.target.files[0])}
+                            className="mt-2 w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-300 file:mr-4 file:rounded-full file:border-0 file:bg-white file:px-4 file:py-2 file:text-sm file:font-bold file:text-black"
+                        />
+                        <p className="mt-2 text-xs text-zinc-500">Upload akan menggantikan Logo URL untuk skill ini.</p>
+                        <FieldError message={errors.logo_file} />
                     </label>
                     <label className="block">
                         <span className="text-sm font-medium text-zinc-300">Sort Order</span>

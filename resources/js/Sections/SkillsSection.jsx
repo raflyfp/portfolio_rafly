@@ -5,14 +5,14 @@ import TechLogo from '../Components/TechLogo';
 export default function SkillsSection({ skills, content }) {
     return (
         <section id="skills" className="px-4 py-24 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-6xl">
+            <div className="mx-auto max-w-[96rem]">
                 <SectionHeader
                     eyebrow={content.skills_eyebrow}
                     title={content.skills_title}
                     description={content.skills_description}
                 />
 
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
                     {skills.map((skill, index) => {
                         const item = typeof skill === 'string' ? { name: skill, logo_url: null } : skill;
 

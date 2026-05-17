@@ -12,14 +12,14 @@ export default function AboutSection({ content }) {
 
     return (
         <section id="about" className="px-4 py-24 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-6xl">
+            <div className="mx-auto max-w-[96rem]">
                 <SectionHeader
                     eyebrow={content.about_eyebrow}
                     title={content.about_title}
                     description={content.about_description}
                 />
 
-                <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
+                <div className={highlights.length ? 'grid gap-5 lg:grid-cols-[0.9fr_1.1fr]' : 'mx-auto max-w-3xl'}>
                     <motion.div
                         initial={{ opacity: 0, x: -24 }}
                         whileInView={{ opacity: 1, x: 0 }}

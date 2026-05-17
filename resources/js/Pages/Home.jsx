@@ -23,13 +23,12 @@ const fallbackSkills = [
 
 const fallbackHomeContent = {
     site_title: 'Rafly Faldiansyah Putra - Fullstack Developer',
-    hero_badge: 'Fullstack Developer',
+    nav_brand: 'Rafly.Dev',
     hero_title: 'Rafly Faldiansyah Putra',
-    hero_description:
-        'Seorang Fullstack Developer yang fokus pada pengembangan aplikasi web modern menggunakan Laravel, React, MySQL, dan Docker.',
-    hero_stack: 'Laravel, React, MySQL, Docker',
-    hero_panel_label: 'Build System',
-    hero_panel_note: 'Dashboard management system, monitoring workflow, dan aplikasi web responsive dengan antarmuka modern.',
+    hero_showcase_title: 'Full Stack Developer Crafting Futuristic Web Experiences',
+    hero_intro:
+        'I design and build fast, responsive, and polished web applications with clean systems, smooth interactions, and a deep-space digital feel.',
+    hero_location: 'Based in Sidoarjo, Indonesia',
     about_eyebrow: 'About Me',
     about_title: 'Membangun produk web yang rapi, cepat, dan mudah dipakai.',
     about_description:
@@ -56,8 +55,11 @@ const fallbackHomeContent = {
     contact_body: 'Fullstack Developer untuk Laravel, React, MySQL, Docker, dashboard system, dan UI web modern yang responsive.',
     contact_email: 'hello@rafly.dev',
     contact_whatsapp: 'https://wa.me/',
-    footer_left: 'Rafly Faldiansyah Putra',
-    footer_right: 'Fullstack Developer',
+    social_github: '#',
+    social_linkedin: '#',
+    social_instagram: '#',
+    footer_left: '@ 2026 Rafly Faldiansyah Putra - All rights reserved.',
+    // footer_right: 'Fullstack Developer',
 };
 
 const fallbackExperiences = [
@@ -132,11 +134,12 @@ export default function Home({
     projects = fallbackProjects,
     skillLogos = {},
     cvFiles = [],
+    heroPhotoUrl = null,
 }) {
     return (
-        <PortfolioLayout cvFiles={cvFiles}>
+        <PortfolioLayout cvFiles={cvFiles} brandName={homeContent.nav_brand} profilePhotoUrl={heroPhotoUrl}>
             <Head title={homeContent.site_title} />
-            <HeroSection content={homeContent} />
+            <HeroSection content={homeContent} photoUrl={heroPhotoUrl} orbitSkills={skills} />
             <AboutSection content={homeContent} />
             <SkillsSection skills={skills} content={homeContent} />
             <ExperienceSection experiences={experiences} content={homeContent} />

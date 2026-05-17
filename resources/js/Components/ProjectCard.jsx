@@ -1,31 +1,78 @@
 import { Code2, Radio } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import ActionLink from './ActionLink';
 import TechLogo from './TechLogo';
 
 const normalize = (value) => value.toLowerCase().replace(/\s+js$/, '').trim();
 
 export default function ProjectCard({ project, index, skillLogos = {} }) {
+    const cardRef = useRef(null);
+    const videoRef = useRef(null);
+    const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(false);
+
+    useEffect(() => {
+        if (!project.video || shouldLoadVideo || !cardRef.current) {
+            return undefined;
+        }
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setShouldLoadVideo(true);
+                    observer.disconnect();
+                }
+            },
+            { rootMargin: '320px 0px' },
+        );
+
+        observer.observe(cardRef.current);
+
+        return () => observer.disconnect();
+    }, [project.video, shouldLoadVideo]);
+
+    useEffect(() => {
+        if (!videoRef.current) {
+            return;
+        }
+
+        if (isPlaying) {
+            videoRef.current.play().catch(() => setIsPlaying(false));
+        } else {
+            videoRef.current.pause();
+        }
+    }, [isPlaying]);
+
+    const startPreview = () => setIsPlaying(true);
+    const stopPreview = () => setIsPlaying(false);
+
     return (
         <motion.article
+            ref={cardRef}
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-100px' }}
             transition={{ delay: index * 0.08, duration: 0.55, ease: 'easeOut' }}
             whileHover={{ y: -8 }}
+            onMouseEnter={startPreview}
+            onMouseLeave={stopPreview}
+            onFocus={startPreview}
+            onBlur={stopPreview}
             className="group overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.045] shadow-2xl shadow-black/20 backdrop-blur-xl"
         >
             <div className="relative aspect-video overflow-hidden bg-zinc-900">
                 {project.video ? (
                     <video
+                        ref={videoRef}
                         className="h-full w-full object-cover opacity-80 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
-                        src={project.video}
+                        src={shouldLoadVideo ? project.video : undefined}
                         poster={project.thumbnail}
-                        autoPlay
                         muted
                         loop
                         playsInline
-                        preload="metadata"
+                        preload="none"
+                        onClick={() => setIsPlaying((value) => !value)}
                     />
                 ) : project.thumbnail ? (
                     <img

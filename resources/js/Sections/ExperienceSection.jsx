@@ -1,37 +1,80 @@
 import { motion } from 'framer-motion';
+import { ChevronDown } from 'lucide-react';
 import SectionHeader from '../Components/SectionHeader';
+
+function getInitials(title = '') {
+    return title
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((word) => word[0]?.toUpperCase())
+        .join('');
+}
+
+function getResponsibilities(description = '') {
+    return description
+        .split(/\n|•/)
+        .map((item) => item.trim())
+        .filter(Boolean);
+}
 
 export default function ExperienceSection({ experiences, content }) {
     return (
         <section id="experience" className="px-4 py-24 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-5xl">
+            <div className="mx-auto max-w-[96rem]">
                 <SectionHeader
                     eyebrow={content.experience_eyebrow}
                     title={content.experience_title}
                     description={content.experience_description}
                 />
 
-                <div className="relative">
-                    <div className="absolute left-4 top-0 hidden h-full w-px bg-gradient-to-b from-cyan-300/0 via-cyan-300/40 to-cyan-300/0 sm:block" />
-                    <div className="grid gap-5">
-                        {experiences.map((item, index) => (
-                            <motion.div
+                <div className="grid gap-5">
+                    {experiences.map((item, index) => {
+                        const responsibilities = getResponsibilities(item.description);
+
+                        return (
+                            <motion.article
                                 key={item.title}
-                                initial={{ opacity: 0, x: -24 }}
-                                whileInView={{ opacity: 1, x: 0 }}
+                                initial={{ opacity: 0, y: 24 }}
+                                whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: '-120px' }}
-                                transition={{ delay: index * 0.08, duration: 0.55 }}
-                                className="relative rounded-[28px] border border-white/10 bg-white/[0.045] p-6 backdrop-blur-xl sm:ml-12"
+                                transition={{ delay: index * 0.06, duration: 0.55, ease: 'easeOut' }}
+                                className="relative overflow-hidden rounded-lg border border-cyan-100/15 bg-slate-900/55 p-6 shadow-[0_0_40px_rgba(8,47,73,0.16)] backdrop-blur-xl transition hover:border-cyan-100/30 hover:bg-slate-900/70"
                             >
-                                <span className="absolute -left-[3.25rem] top-7 hidden h-3 w-3 rounded-full bg-cyan-200 shadow-[0_0_24px_rgba(103,232,249,0.9)] sm:block" />
-                                <p className="text-xs font-bold uppercase tracking-[0.28em] text-cyan-300/80">
-                                    {item.period}
-                                </p>
-                                <h3 className="mt-3 text-xl font-semibold text-white">{item.title}</h3>
-                                <p className="mt-3 text-sm leading-7 text-zinc-400">{item.description}</p>
-                            </motion.div>
-                        ))}
-                    </div>
+                                <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/35 to-transparent" />
+                                <div className="grid gap-5 md:grid-cols-[auto_1fr_auto] md:items-start">
+                                    <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-white/10 bg-white text-lg font-black text-slate-950 shadow-[0_0_26px_rgba(34,211,238,0.14)]">
+                                        {getInitials(item.title) || 'EX'}
+                                    </div>
+
+                                    <div className="min-w-0">
+                                        <h3 className="text-xl font-semibold tracking-tight text-white md:text-2xl">
+                                            {item.title}
+                                        </h3>
+                                        <p className="mt-2 text-sm leading-6 text-cyan-50/75">{item.period}</p>
+
+                                        <details className="group mt-4" open={index === 0}>
+                                            <summary className="inline-flex cursor-pointer list-none items-center gap-2 text-sm font-semibold text-white transition hover:text-cyan-100">
+                                                <ChevronDown className="h-4 w-4 transition group-open:rotate-180" />
+                                                View Responsibilities
+                                            </summary>
+                                            <ul className="mt-3 grid gap-2 pl-6 text-sm leading-7 text-zinc-200">
+                                                {responsibilities.map((responsibility) => (
+                                                    <li key={responsibility} className="list-disc">
+                                                        {responsibility}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </details>
+                                    </div>
+
+                                    <span className="w-fit rounded-md border border-cyan-100/15 bg-white/[0.045] px-3 py-2 text-sm font-bold text-white">
+                                        {item.period}
+                                    </span>
+                                </div>
+                            </motion.article>
+                        );
+                    })}
                 </div>
             </div>
         </section>

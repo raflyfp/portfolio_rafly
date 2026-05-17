@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PortfolioSkill;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -45,6 +46,10 @@ class SkillController extends Controller
 
     public function destroy(PortfolioSkill $skill): RedirectResponse
     {
+        if ($skill->logo_url && str_starts_with($skill->logo_url, '/storage/skill-logos/')) {
+            Storage::disk('public')->delete(str_replace('/storage/', '', $skill->logo_url));
+        }
+
         $skill->delete();
 
         return back()->with('success', 'Skill berhasil dihapus.');
@@ -52,10 +57,23 @@ class SkillController extends Controller
 
     private function validated(Request $request, ?PortfolioSkill $skill = null): array
     {
-        return $request->validate([
+        $data = $request->validate([
             'name' => ['required', 'string', 'max:120', Rule::unique('portfolio_skills', 'name')->ignore($skill?->id)],
             'logo_url' => ['nullable', 'url', 'max:500'],
+            'logo_file' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,svg', 'max:2048'],
             'sort_order' => ['required', 'integer', 'min:0', 'max:999'],
         ]);
+
+        if ($request->hasFile('logo_file')) {
+            if ($skill?->logo_url && str_starts_with($skill->logo_url, '/storage/skill-logos/')) {
+                Storage::disk('public')->delete(str_replace('/storage/', '', $skill->logo_url));
+            }
+
+            $data['logo_url'] = Storage::url($request->file('logo_file')->store('skill-logos', 'public'));
+        }
+
+        unset($data['logo_file']);
+
+        return $data;
     }
 }

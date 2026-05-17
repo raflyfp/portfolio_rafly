@@ -24,6 +24,114 @@ body {
     background: #050506;
 }
 
+html.theme-light body {
+    background: #f8fafc;
+}
+
+.theme-light {
+    color: #0f172a;
+}
+
+.theme-light .space-background {
+    background:
+        radial-gradient(circle at 15% 12%, rgba(34, 211, 238, 0.18), transparent 30%),
+        radial-gradient(circle at 85% 18%, rgba(217, 70, 239, 0.12), transparent 34%),
+        linear-gradient(180deg, #f8fafc, #eef6fb 54%, #f8fafc);
+}
+
+.theme-light .space-nebula {
+    background:
+        radial-gradient(circle at 18% 26%, rgba(14, 165, 233, 0.16), transparent 28%),
+        radial-gradient(circle at 78% 18%, rgba(217, 70, 239, 0.10), transparent 30%),
+        radial-gradient(circle at 54% 76%, rgba(16, 185, 129, 0.10), transparent 34%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(241, 245, 249, 0.62));
+}
+
+.theme-light .space-grid {
+    background:
+        radial-gradient(circle at 50% 0%, rgba(15, 23, 42, 0.08), transparent 34%),
+        linear-gradient(rgba(15, 23, 42, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+    background-size: auto, 80px 80px, 80px 80px;
+    opacity: 0.58;
+}
+
+.theme-light .shooting-star {
+    background: linear-gradient(90deg, transparent, rgba(14, 116, 144, 0.55), transparent);
+}
+
+.hero-name-gradient {
+    background-image: linear-gradient(90deg, #ffffff, #cffafe, #fae8ff);
+}
+
+.theme-light .hero-name-gradient {
+    background-image: linear-gradient(90deg, #0f172a, #0e7490, #a21caf);
+    color: transparent !important;
+    -webkit-text-fill-color: transparent;
+}
+
+.theme-light .text-white,
+.theme-light .group:hover .group-hover\:text-white {
+    color: #0f172a !important;
+}
+
+.theme-light .text-zinc-200,
+.theme-light .text-zinc-300 {
+    color: #334155 !important;
+}
+
+.theme-light .text-zinc-400,
+.theme-light .text-zinc-500 {
+    color: #64748b !important;
+}
+
+.theme-light .text-cyan-50\/75,
+.theme-light .text-cyan-100,
+.theme-light .text-cyan-200,
+.theme-light .text-cyan-300\/70,
+.theme-light .text-cyan-300\/80 {
+    color: #0e7490 !important;
+}
+
+.theme-light [class~="bg-[#050506]"],
+.theme-light [class~="bg-[#03040b]"] {
+    background-color: #f8fafc !important;
+}
+
+.theme-light [class~="bg-white/[0.035]"],
+.theme-light [class~="bg-white/[0.04]"],
+.theme-light [class~="bg-white/[0.045]"],
+.theme-light [class~="bg-white/[0.055]"],
+.theme-light [class~="bg-white/[0.06]"],
+.theme-light [class~="bg-white/[0.08]"] {
+    background-color: rgba(255, 255, 255, 0.72) !important;
+}
+
+.theme-light [class~="bg-slate-950/35"],
+.theme-light [class~="bg-slate-950/72"],
+.theme-light [class~="bg-slate-900/55"],
+.theme-light [class~="bg-slate-900/70"],
+.theme-light [class~="bg-zinc-950/90"],
+.theme-light [class~="bg-zinc-950/95"],
+.theme-light [class~="bg-black/10"],
+.theme-light [class~="bg-black/20"],
+.theme-light [class~="bg-black/35"] {
+    background-color: rgba(255, 255, 255, 0.78) !important;
+}
+
+.theme-light [class~="border-white/10"],
+.theme-light [class~="border-white/[0.08]"],
+.theme-light [class~="border-cyan-100/15"],
+.theme-light [class~="border-cyan-100/20"],
+.theme-light [class~="border-cyan-100/25"] {
+    border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+.theme-light [class~="shadow-black/20"],
+.theme-light [class~="shadow-black/40"] {
+    --tw-shadow-color: rgba(15, 23, 42, 0.12) !important;
+}
+
 ::selection {
     background: rgba(103, 232, 249, 0.35);
     color: white;
@@ -42,6 +150,7 @@ video {
     }
 }
 
+.space-cursor-glow,
 .space-cursor-ring,
 .space-cursor-dot {
     pointer-events: none;
@@ -53,9 +162,21 @@ video {
     will-change: transform;
 }
 
+.has-space-cursor .space-cursor-glow,
 .has-space-cursor .space-cursor-ring,
 .has-space-cursor .space-cursor-dot {
     opacity: 1;
+}
+
+.space-cursor-glow {
+    width: 280px;
+    height: 280px;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.12), rgba(168, 85, 247, 0.065) 36%, transparent 68%);
+    filter: blur(12px);
+    mix-blend-mode: screen;
+    opacity: 0;
+    transition: opacity 220ms ease;
 }
 
 .space-cursor-ring {
@@ -92,7 +213,34 @@ video {
     background: #ffffff;
 }
 
+.theme-light .space-cursor-glow {
+    background: radial-gradient(circle, rgba(15, 23, 42, 0.08), rgba(14, 116, 144, 0.055) 36%, transparent 68%);
+    mix-blend-mode: multiply;
+}
+
+.theme-light .space-cursor-ring {
+    border-color: rgba(15, 23, 42, 0.72);
+    box-shadow:
+        0 0 18px rgba(15, 23, 42, 0.16),
+        inset 0 0 16px rgba(15, 23, 42, 0.08);
+}
+
+.theme-light .space-cursor-dot {
+    background: #0f172a;
+    box-shadow: 0 0 12px rgba(15, 23, 42, 0.45);
+}
+
+.theme-light .space-cursor-ring.is-interactive {
+    border-color: rgba(15, 23, 42, 0.86);
+    background: rgba(15, 23, 42, 0.08);
+}
+
+.theme-light .space-cursor-dot.is-interactive {
+    background: #020617;
+}
+
 @media (prefers-reduced-motion: reduce), (pointer: coarse) {
+    .space-cursor-glow,
     .space-cursor-ring,
     .space-cursor-dot {
         display: none;
@@ -106,6 +254,16 @@ video {
         radial-gradient(circle at 50% 78%, rgba(16, 185, 129, 0.10), transparent 34%),
         linear-gradient(180deg, rgba(3, 4, 11, 0.15), rgba(3, 4, 11, 0.75));
     filter: saturate(1.1);
+}
+
+.space-grid {
+    background:
+        radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.08), transparent 34%),
+        linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+    background-size: auto, 80px 80px, 80px 80px;
+    opacity: 0.85;
+    animation: space-grid-drift 24s linear infinite;
 }
 
 .shooting-star {
@@ -139,6 +297,13 @@ video {
     animation-duration: 12s;
 }
 
+.rocket-runner {
+    left: -3.5rem;
+    transform: translateY(-50%);
+    animation: rocket-runner 5.8s ease-in-out infinite;
+    will-change: left, transform;
+}
+
 @keyframes shooting-star {
     0% {
         opacity: 0;
@@ -160,7 +325,45 @@ video {
     }
 }
 
+@keyframes space-grid-drift {
+    from {
+        background-position: 0 0, 0 0, 0 0;
+    }
+
+    to {
+        background-position: 0 0, 80px 80px, 80px 80px;
+    }
+}
+
+@keyframes rocket-runner {
+    0% {
+        left: -3.5rem;
+        transform: translateY(-50%) translateY(0);
+        opacity: 0;
+    }
+
+    8% {
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(-50%) translateY(-5px);
+    }
+
+    92% {
+        opacity: 1;
+    }
+
+    100% {
+        left: calc(100% + 3.5rem);
+        transform: translateY(-50%) translateY(0);
+        opacity: 0;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
+    .rocket-runner,
+    .space-grid,
     .shooting-star {
         animation: none;
     }

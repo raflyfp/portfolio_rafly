@@ -2,8 +2,10 @@ import { ArrowUpRight } from 'lucide-react';
 
 export default function ActionLink({ href, children, icon: Icon = ArrowUpRight, variant = 'primary' }) {
     const variants = {
-        primary: 'border-white/15 bg-white text-black hover:bg-cyan-200',
-        secondary: 'border-white/10 bg-white/[0.06] text-white hover:border-white/25 hover:bg-white/[0.1]',
+        primary:
+            'border-cyan-100/25 bg-cyan-50 text-slate-950 shadow-[0_0_34px_rgba(34,211,238,0.2)] hover:bg-cyan-200 hover:shadow-[0_0_44px_rgba(34,211,238,0.34)]',
+        secondary:
+            'border-white/10 bg-white/[0.055] text-white backdrop-blur-xl hover:border-cyan-100/25 hover:bg-cyan-200/10 hover:shadow-[0_0_34px_rgba(34,211,238,0.16)]',
     };
 
     return (

@@ -14,9 +14,11 @@ use App\Models\PortfolioExperience;
 use App\Models\PortfolioHomeContent;
 use App\Models\PortfolioProject;
 use App\Models\PortfolioSkill;
+use App\Models\User;
 use App\Support\PortfolioContent;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -24,8 +26,20 @@ Route::get('/', function () {
     $content['homeContent'] = PortfolioHomeContent::defaults();
     $content['skillLogos'] = [];
     $content['cvFiles'] = [];
+    $content['heroPhotoUrl'] = null;
 
     try {
+        if (Schema::hasTable('users')) {
+            $profileUser = User::query()
+                ->whereNotNull('profile_photo_path')
+                ->orderByRaw("case when username = 'rafly' then 0 else 1 end")
+                ->first(['profile_photo_path']);
+
+            $content['heroPhotoUrl'] = $profileUser?->profile_photo_path
+                ? Storage::url($profileUser->profile_photo_path)
+                : null;
+        }
+
         if (Schema::hasTable('portfolio_cvs')) {
             PortfolioCv::seedDefaults();
             $content['cvFiles'] = PortfolioCv::query()
@@ -112,6 +126,7 @@ Route::get('/', function () {
         $content['homeContent'] = PortfolioHomeContent::defaults();
         $content['skillLogos'] = [];
         $content['cvFiles'] = [];
+        $content['heroPhotoUrl'] = null;
     }
 
     return Inertia::render('Home', $content);

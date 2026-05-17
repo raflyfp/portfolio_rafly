@@ -6,7 +6,7 @@ import SectionHeader from '../Components/SectionHeader';
 export default function ContactSection({ content }) {
     return (
         <section id="contact" className="px-4 py-24 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-5xl">
+            <div className="mx-auto max-w-[96rem]">
                 <SectionHeader
                     eyebrow={content.contact_eyebrow}
                     title={content.contact_title}

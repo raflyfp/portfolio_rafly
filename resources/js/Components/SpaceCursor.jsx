@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 export default function SpaceCursor() {
     const cursorRef = useRef(null);
     const dotRef = useRef(null);
+    const glowRef = useRef(null);
 
     useEffect(() => {
         const finePointer = window.matchMedia('(pointer: fine)').matches;
@@ -14,6 +15,7 @@ export default function SpaceCursor() {
 
         const cursor = cursorRef.current;
         const dot = dotRef.current;
+        const glow = glowRef.current;
         let pointerX = window.innerWidth / 2;
         let pointerY = window.innerHeight / 2;
         let ringX = pointerX;
@@ -26,6 +28,7 @@ export default function SpaceCursor() {
             pointerX = event.clientX;
             pointerY = event.clientY;
             dot.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
+            glow.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
         };
 
         const animate = () => {
@@ -55,6 +58,7 @@ export default function SpaceCursor() {
 
     return (
         <>
+            <span ref={glowRef} className="space-cursor-glow" aria-hidden="true" />
             <span ref={cursorRef} className="space-cursor-ring" aria-hidden="true" />
             <span ref={dotRef} className="space-cursor-dot" aria-hidden="true" />
         </>

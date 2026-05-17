@@ -7,13 +7,12 @@ const groups = [
     {
         title: 'Hero',
         fields: [
+            ['nav_brand', 'Navbar Brand'],
             ['site_title', 'Browser Title'],
-            ['hero_badge', 'Badge'],
-            ['hero_title', 'Title'],
-            ['hero_description', 'Description', 'textarea'],
-            ['hero_stack', 'Stack Pills'],
-            ['hero_panel_label', 'Panel Label'],
-            ['hero_panel_note', 'Panel Note', 'textarea'],
+            ['hero_title', 'Hero Title'],
+            ['hero_showcase_title', 'Hero Showcase Title', 'textarea'],
+            ['hero_intro', 'Hero Intro', 'textarea'],
+            ['hero_location', 'Hero Location'],
         ],
     },
     {
@@ -51,6 +50,9 @@ const groups = [
             ['contact_body', 'Contact Body', 'textarea'],
             ['contact_email', 'Contact Email'],
             ['contact_whatsapp', 'WhatsApp URL'],
+            ['social_github', 'GitHub URL'],
+            ['social_linkedin', 'LinkedIn URL'],
+            ['social_instagram', 'Instagram URL'],
             ['footer_left', 'Footer Left'],
             ['footer_right', 'Footer Right'],
         ],
