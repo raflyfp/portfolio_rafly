@@ -106,17 +106,17 @@ function HologramOrb({ photoUrl, orbitSkills = [] }) {
             <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 34, repeat: Infinity, ease: 'linear' }}
-                className="absolute z-20 h-80 w-80 rounded-full border border-cyan-200/18 sm:h-[28rem] sm:w-[28rem]"
+                className="hero-orbit-ring hero-orbit-ring-cyan absolute z-20 h-80 w-80 rounded-full border border-cyan-200/18 sm:h-[28rem] sm:w-[28rem]"
             />
             <motion.div
                 animate={{ rotate: -360 }}
                 transition={{ duration: 46, repeat: Infinity, ease: 'linear' }}
-                className="absolute z-20 h-72 w-96 rounded-[50%] border border-fuchsia-200/14 sm:h-96 sm:w-[32rem]"
+                className="hero-orbit-ring hero-orbit-ring-fuchsia absolute z-20 h-72 w-96 rounded-[50%] border border-fuchsia-200/14 sm:h-96 sm:w-[32rem]"
             />
             <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 58, repeat: Infinity, ease: 'linear' }}
-                className="absolute z-20 h-96 w-60 rounded-[50%] border border-white/10 sm:h-[31rem] sm:w-80"
+                className="hero-orbit-ring hero-orbit-ring-slate absolute z-20 h-96 w-60 rounded-[50%] border border-white/10 sm:h-[31rem] sm:w-80"
             />
             {skillObjects.map((item) => (
                 <OrbitObject key={item.name} item={item} />

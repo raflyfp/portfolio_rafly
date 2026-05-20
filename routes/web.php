@@ -8,13 +8,13 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SkillController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CvDownloadController;
-use App\Models\Project;
 use App\Models\PortfolioCv;
 use App\Models\PortfolioExperience;
 use App\Models\PortfolioHomeContent;
 use App\Models\PortfolioProject;
 use App\Models\PortfolioSkill;
 use App\Models\User;
+use App\Services\SupabaseProjectApi;
 use App\Support\PortfolioContent;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
@@ -90,19 +90,17 @@ Route::get('/', function () {
             $content['experiences'] = $experiences ?: $content['experiences'];
         }
 
-        if (Schema::hasTable('projects')) {
-            $projects = Project::query()
-                ->latest()
-                ->get()
-                ->map(fn (Project $project, int $index) => [
-                    'name' => $project->title,
+        if (filled(config('services.supabase.url')) && filled(config('services.supabase.key'))) {
+            $projects = collect(app(SupabaseProjectApi::class)->latest())
+                ->map(fn (array $project, int $index) => [
+                    'name' => $project['title'],
                     'category' => 'Portfolio Project',
-                    'description' => $project->description,
-                    'stack' => $project->tech_stack ?? [],
-                    'video' => $project->video_url,
-                    'thumbnail' => $project->thumbnail_url,
-                    'github' => $project->github_url ?: '#',
-                    'demo' => $project->demo_url ?: '#',
+                    'description' => $project['description'],
+                    'stack' => $project['tech_stack'] ?? [],
+                    'video' => $project['video_url'],
+                    'thumbnail' => $project['thumbnail_url'],
+                    'github' => $project['github_url'] ?: '#',
+                    'demo' => $project['demo_url'] ?: '#',
                     'glow' => [
                         'from-cyan-300/60 via-blue-500/25 to-transparent',
                         'from-emerald-300/55 via-cyan-500/25 to-transparent',
