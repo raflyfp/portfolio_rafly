@@ -39,6 +39,10 @@ const fallbackHomeContent = {
         'Berpengalaman membangun dashboard management system, sistem monitoring, reminder dokumen, dan aplikasi berbasis web dengan UI modern serta responsive.',
     about_highlights:
         'Fullstack|Laravel, React, API, deployment workflow\nDashboard|Management system dan monitoring dokumen\nResponsive|UI modern untuk mobile, tablet, desktop',
+    about_education_level: 'S1 Teknik Informatika',
+    about_education_school: 'Universitas Trunojoyo Madura',
+    about_education_period: '2020 - 2024',
+    about_education_gpa: '3.75',
     skills_eyebrow: 'Skills',
     skills_title: 'Stack yang dipakai untuk membangun aplikasi modern.',
     skills_description: 'Fokus pada ekosistem Laravel, React, database relational, container workflow, dan integrasi API.',

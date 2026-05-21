@@ -24,6 +24,10 @@ const groups = [
             ['about_body', 'Main Text', 'textarea'],
             ['about_secondary', 'Secondary Text', 'textarea'],
             ['about_highlights', 'Highlights', 'textarea'],
+            ['about_education_level', 'Education Level'],
+            ['about_education_school', 'School / Campus'],
+            ['about_education_period', 'Education Period'],
+            ['about_education_gpa', 'GPA'],
         ],
     },
     {
