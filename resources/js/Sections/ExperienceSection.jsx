@@ -12,10 +12,54 @@ function getInitials(title = '') {
 }
 
 function getResponsibilities(description = '') {
-    return description
-        .split(/\n|•/)
-        .map((item) => item.trim())
-        .filter(Boolean);
+    const bulletMarker = /^\s*(?:[-*]|\u2022|\d+[.)])\s+/;
+    const entries = [];
+    let currentEntry = null;
+
+    description
+        .replace(/\r\n/g, '\n')
+        .split('\n')
+        .forEach((rawLine) => {
+            const line = rawLine.trim();
+
+            if (!line) {
+                if (currentEntry) {
+                    entries.push(currentEntry);
+                    currentEntry = null;
+                }
+
+                return;
+            }
+
+            if (bulletMarker.test(line)) {
+                if (currentEntry) {
+                    entries.push(currentEntry);
+                }
+
+                currentEntry = {
+                    type: 'bullet',
+                    text: line.replace(bulletMarker, '').trim(),
+                };
+
+                return;
+            }
+
+            if (currentEntry) {
+                currentEntry.text = `${currentEntry.text} ${line}`;
+                return;
+            }
+
+            currentEntry = {
+                type: 'paragraph',
+                text: line,
+            };
+        });
+
+    if (currentEntry) {
+        entries.push(currentEntry);
+    }
+
+    return entries.filter((entry) => entry.text);
 }
 
 export default function ExperienceSection({ experiences, content }) {
@@ -58,13 +102,20 @@ export default function ExperienceSection({ experiences, content }) {
                                                 <ChevronDown className="h-4 w-4 transition group-open:rotate-180" />
                                                 View Responsibilities
                                             </summary>
-                                            <ul className="mt-3 grid gap-2 pl-6 text-sm leading-7 text-zinc-200">
+                                            <div className="mt-3 grid gap-3 text-sm leading-7 text-zinc-200">
                                                 {responsibilities.map((responsibility) => (
-                                                    <li key={responsibility} className="list-disc">
-                                                        {responsibility}
-                                                    </li>
+                                                    responsibility.type === 'bullet' ? (
+                                                        <p
+                                                            key={responsibility.text}
+                                                            className="relative pl-6 before:absolute before:left-1 before:top-[0.78em] before:h-1.5 before:w-1.5 before:rounded-full before:bg-zinc-300"
+                                                        >
+                                                            {responsibility.text}
+                                                        </p>
+                                                    ) : (
+                                                        <p key={responsibility.text}>{responsibility.text}</p>
+                                                    )
                                                 ))}
-                                            </ul>
+                                            </div>
                                         </details>
                                     </div>
 

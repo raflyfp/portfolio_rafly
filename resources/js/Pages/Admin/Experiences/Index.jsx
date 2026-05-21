@@ -143,6 +143,9 @@ export default function ExperiencesIndex({ experiences, filters }) {
                     <label className="block">
                         <span className="text-sm font-medium text-zinc-300">Description</span>
                         <textarea value={data.description} onChange={(event) => setData('description', event.target.value)} rows="4" className="mt-2 w-full resize-none rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-white outline-none transition focus:border-cyan-300/40" />
+                        <p className="mt-2 text-xs leading-5 text-zinc-500">
+                            Awali baris dengan "- " untuk membuat poin baru. Baris tanpa tanda itu akan digabung sebagai lanjutan paragraf sebelumnya.
+                        </p>
                         <FieldError message={errors.description} />
                     </label>
                     <div className="flex justify-end gap-3 border-t border-white/10 pt-5">
