@@ -23,7 +23,7 @@ export default function AboutSection({ content }) {
                         <p className="text-lg leading-9 text-zinc-300">
                             {content.about_body}
                         </p>
-                        <p className="mt-5 text-base leading-8 text-zinc-500">
+                        <p className="mt-5 text-base leading-8 text-justify text-zinc-500">
                             {content.about_secondary}
                         </p>
                     </motion.div>

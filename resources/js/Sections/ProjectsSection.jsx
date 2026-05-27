@@ -22,6 +22,8 @@ function ProjectSkeleton() {
 export default function ProjectsSection({ projects, content, skillLogos }) {
     const sectionRef = useRef(null);
     const [shouldRenderProjects, setShouldRenderProjects] = useState(false);
+    const [showAll, setShowAll] = useState(false);
+    const visibleProjects = showAll ? projects : projects.slice(0, 6);
 
     useEffect(() => {
         if (shouldRenderProjects || !sectionRef.current) {
@@ -52,17 +54,29 @@ export default function ProjectsSection({ projects, content, skillLogos }) {
                     description={content.projects_description}
                 />
 
-                <div className="grid gap-6 lg:grid-cols-2">
+                <div className="grid gap-6 lg:grid-cols-3">
                     {shouldRenderProjects ? (
-                        <Suspense fallback={projects.map((project) => <ProjectSkeleton key={project.name} />)}>
-                            {projects.map((project, index) => (
+                        <Suspense fallback={visibleProjects.map((project) => <ProjectSkeleton key={project.name} />)}>
+                            {visibleProjects.map((project, index) => (
                                 <ProjectCard key={project.name} project={project} index={index} skillLogos={skillLogos} />
                             ))}
                         </Suspense>
                     ) : (
-                        projects.map((project) => <ProjectSkeleton key={project.name} />)
+                        visibleProjects.map((project) => <ProjectSkeleton key={project.name} />)
                     )}
                 </div>
+
+                {projects.length > 6 ? (
+                    <div className="mt-10 flex justify-center">
+                        <button
+                            type="button"
+                            onClick={() => setShowAll((current) => !current)}
+                            className="rounded-full border border-white/10 bg-white/[0.06] px-6 py-2 text-sm font-semibold text-white transition duration-300 hover:border-cyan-200/40 hover:bg-cyan-200/10 hover:text-cyan-50"
+                        >
+                            {showAll ? 'Show less' : 'Show more'}
+                        </button>
+                    </div>
+                ) : null}
             </div>
         </section>
     );

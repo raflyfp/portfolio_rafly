@@ -42,6 +42,12 @@ const fadeUp = {
 
 const ORBIT_LIMIT = 8;
 
+function normalizeUrl(value) {
+    if (!value) return '#';
+    if (/^https?:\/\//i.test(value)) return value;
+    return `https://${value}`;
+}
+
 function OrbitObject({ item }) {
     return (
         <motion.div
@@ -266,7 +272,7 @@ export default function HeroSection({ content, photoUrl = null, orbitSkills = []
                     <div className="mt-8 flex items-center gap-3">
                         {SOCIAL_LINKS.map((item) => {
                             const Icon = item.icon;
-                            const href = content[item.key] || '#';
+                            const href = normalizeUrl(content[item.key]);
 
                             return (
                                 <a

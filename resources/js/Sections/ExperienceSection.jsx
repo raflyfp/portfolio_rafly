@@ -102,7 +102,7 @@ export default function ExperienceSection({ experiences, content }) {
                                                 <ChevronDown className="h-4 w-4 transition group-open:rotate-180" />
                                                 View Responsibilities
                                             </summary>
-                                            <div className="mt-3 grid gap-3 text-sm leading-7 text-zinc-200">
+                                            <div className="mt-3 grid gap-3 text-sm leading-7 text-justify text-zinc-200">
                                                 {responsibilities.map((responsibility) => (
                                                     responsibility.type === 'bullet' ? (
                                                         <p
