@@ -1,0 +1,1 @@
+import{t as e}from"./app-DB8wqGUX.js";var t=e();function n({message:e}){return e?(0,t.jsx)(`p`,{className:`mt-2 text-sm text-rose-300`,children:e}):null}export{n as t};

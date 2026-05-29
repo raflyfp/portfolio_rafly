@@ -54,7 +54,7 @@ class SupabaseProjectApi
         return collect($this->request()
             ->get('/projects', [
                 'select' => '*',
-                'order' => 'created_at.desc',
+                'order' => 'sort_order.asc,created_at.desc',
                 'limit' => $limit,
             ])
             ->throw()
@@ -173,7 +173,7 @@ class SupabaseProjectApi
     {
         $query = [
             'select' => '*',
-            'order' => 'created_at.desc',
+            'order' => 'sort_order.asc,created_at.desc',
         ];
 
         if (filled($search)) {
@@ -216,6 +216,7 @@ class SupabaseProjectApi
             'title' => $project['title'],
             'slug' => $project['slug'],
             'description' => $project['description'],
+            'sort_order' => $project['sort_order'] ?? 0,
             'tech_stack' => $techStack,
             'tech_stack_text' => implode(', ', $techStack),
             'github_url' => $project['github_url'] ?? null,

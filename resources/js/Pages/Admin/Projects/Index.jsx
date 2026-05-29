@@ -10,6 +10,7 @@ const emptyForm = {
     title: '',
     slug: '',
     description: '',
+    sort_order: '',
     tech_stack: '',
     github_url: '',
     demo_url: '',
@@ -50,6 +51,7 @@ export default function ProjectsIndex({ projects, filters }) {
             title: project.title,
             slug: project.slug,
             description: project.description,
+            sort_order: project.sort_order ?? '',
             tech_stack: project.tech_stack_text,
             github_url: project.github_url || '',
             demo_url: project.demo_url || '',
@@ -133,6 +135,7 @@ export default function ProjectsIndex({ projects, filters }) {
                             <tr>
                                 <th className="px-5 py-4 font-semibold">Project</th>
                                 <th className="px-5 py-4 font-semibold">Tech Stack</th>
+                                <th className="px-5 py-4 font-semibold">Order</th>
                                 <th className="px-5 py-4 font-semibold">Media</th>
                                 <th className="px-5 py-4 font-semibold">Created</th>
                                 <th className="px-5 py-4 text-right font-semibold">Actions</th>
@@ -156,6 +159,9 @@ export default function ProjectsIndex({ projects, filters }) {
                                                 </span>
                                             ))}
                                         </div>
+                                    </td>
+                                    <td className="px-5 py-5 text-zinc-400">
+                                        {project.sort_order ?? 0}
                                     </td>
                                     <td className="px-5 py-5 text-zinc-400">
                                         <div className="grid gap-1">
@@ -188,7 +194,7 @@ export default function ProjectsIndex({ projects, filters }) {
                             ))}
                             {rows.length === 0 && (
                                 <tr>
-                                    <td colSpan="5" className="px-5 py-12 text-center text-zinc-500">
+                                    <td colSpan="6" className="px-5 py-12 text-center text-zinc-500">
                                         Project tidak ditemukan.
                                     </td>
                                 </tr>
@@ -253,6 +259,19 @@ export default function ProjectsIndex({ projects, filters }) {
                             className="mt-2 w-full resize-none rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-white outline-none transition focus:border-cyan-300/40"
                         />
                         <FieldError message={errors.description} />
+                    </label>
+
+                    <label className="block">
+                        <span className="text-sm font-medium text-zinc-300">Order</span>
+                        <input
+                            type="number"
+                            min="0"
+                            value={data.sort_order}
+                            onChange={(event) => setData('sort_order', event.target.value)}
+                            className="mt-2 w-full rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-white outline-none transition focus:border-cyan-300/40"
+                            placeholder="0"
+                        />
+                        <FieldError message={errors.sort_order} />
                     </label>
 
                     <label className="block">

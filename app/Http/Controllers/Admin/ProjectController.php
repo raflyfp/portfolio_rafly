@@ -130,12 +130,15 @@ class ProjectController extends Controller
                 'alpha_dash',
             ],
             'description' => ['required', 'string', 'max:1200'],
+            'sort_order' => ['nullable', 'integer', 'min:0', 'max:9999'],
             'tech_stack' => ['required', 'string', 'max:500'],
             'github_url' => ['nullable', 'url', 'max:255'],
             'demo_url' => ['nullable', 'url', 'max:255'],
             'video' => ['nullable', 'file', 'mimes:mp4', 'max:51200'],
             'thumbnail' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
         ]);
+
+        $data['sort_order'] = (int) ($data['sort_order'] ?? 0);
 
         $ignoreId = $project['id'] ?? null;
 
