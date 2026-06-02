@@ -99,11 +99,10 @@ export default function ContactSection({ content }) {
                                                 key={option.value}
                                                 type="button"
                                                 onClick={() => updateField('channel', option.value)}
-                                                className={`inline-flex items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
-                                                    active
+                                                className={`inline-flex items-center justify-center gap-2 rounded-2xl border px-4 py-3 text-sm font-semibold transition ${active
                                                         ? 'border-cyan-100/25 bg-cyan-50 text-slate-950'
                                                         : 'border-white/10 bg-white/[0.055] text-white hover:border-cyan-100/25 hover:bg-cyan-200/10'
-                                                }`}
+                                                    }`}
                                             >
                                                 {option.label}
                                                 <Icon className="h-4 w-4" />

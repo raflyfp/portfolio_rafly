@@ -180,11 +180,12 @@ video {
     background-color: rgba(14, 116, 144, 0.12) !important;
 }
 
-.theme-light .project-video-player > div:first-child {
+.theme-light .project-video-player>div:first-child {
     border-color: rgba(15, 23, 42, 0.12) !important;
 }
 
 @media (pointer: fine) {
+
     .has-space-cursor,
     .has-space-cursor * {
         cursor: none;
@@ -228,8 +229,6 @@ video {
     height: 280px;
     border-radius: 999px;
     background: radial-gradient(circle, rgba(34, 211, 238, 0.12), rgba(168, 85, 247, 0.065) 36%, transparent 68%);
-    filter: blur(12px);
-    mix-blend-mode: screen;
     opacity: 0;
     transition: opacity 220ms ease;
 }
@@ -270,7 +269,6 @@ video {
 
 .theme-light .space-cursor-glow {
     background: radial-gradient(circle, rgba(15, 23, 42, 0.08), rgba(14, 116, 144, 0.055) 36%, transparent 68%);
-    mix-blend-mode: multiply;
 }
 
 .theme-light .space-cursor-ring {
@@ -294,7 +292,9 @@ video {
     background: #020617;
 }
 
-@media (prefers-reduced-motion: reduce), (pointer: coarse) {
+@media (prefers-reduced-motion: reduce),
+(pointer: coarse) {
+
     .space-cursor-glow,
     .space-cursor-ring,
     .space-cursor-dot {
@@ -417,6 +417,7 @@ video {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     .rocket-runner,
     .space-grid,
     .shooting-star {

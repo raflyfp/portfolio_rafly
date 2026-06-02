@@ -20,22 +20,42 @@ export default function SpaceCursor() {
         let pointerY = window.innerHeight / 2;
         let ringX = pointerX;
         let ringY = pointerY;
-        let frame;
+        let frame = null;
 
         document.documentElement.classList.add('has-space-cursor');
+
+        const animate = () => {
+            const dx = pointerX - ringX;
+            const dy = pointerY - ringY;
+
+            // Snap if very close and stop requestAnimationFrame
+            if (Math.abs(dx) < 0.1 && Math.abs(dy) < 0.1) {
+                ringX = pointerX;
+                ringY = pointerY;
+                cursor.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+                dot.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
+                glow.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
+                frame = null;
+                return;
+            }
+
+            ringX += dx * 0.18;
+            ringY += dy * 0.18;
+
+            cursor.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+            dot.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
+            glow.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
+
+            frame = window.requestAnimationFrame(animate);
+        };
 
         const move = (event) => {
             pointerX = event.clientX;
             pointerY = event.clientY;
-            dot.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
-            glow.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
-        };
 
-        const animate = () => {
-            ringX += (pointerX - ringX) * 0.18;
-            ringY += (pointerY - ringY) * 0.18;
-            cursor.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
-            frame = window.requestAnimationFrame(animate);
+            if (!frame) {
+                frame = window.requestAnimationFrame(animate);
+            }
         };
 
         const setInteractive = (event) => {
@@ -50,7 +70,7 @@ export default function SpaceCursor() {
 
         return () => {
             document.documentElement.classList.remove('has-space-cursor');
-            window.cancelAnimationFrame(frame);
+            if (frame) window.cancelAnimationFrame(frame);
             window.removeEventListener('pointermove', move);
             window.removeEventListener('pointerover', setInteractive);
         };

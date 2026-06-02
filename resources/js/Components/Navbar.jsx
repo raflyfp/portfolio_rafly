@@ -48,11 +48,10 @@ export default function Navbar({ cvFiles = [], brandName = 'Rafly.Dev', profileP
     return (
         <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6 lg:px-8">
             <nav
-                className={`mx-auto flex max-w-[96rem] items-center justify-between rounded-full border px-4 py-3 shadow-[0_0_40px_rgba(8,47,73,0.18)] transition duration-300 ${
-                    isScrolled
+                className={`mx-auto flex max-w-[96rem] items-center justify-between rounded-full border px-4 py-3 shadow-[0_0_40px_rgba(8,47,73,0.18)] transition duration-300 ${isScrolled
                         ? 'border-cyan-100/15 bg-slate-950/72 backdrop-blur-2xl'
                         : 'border-white/[0.08] bg-slate-950/35 backdrop-blur-xl'
-                }`}
+                    }`}
             >
                 <a href="#home" onClick={closeMenu} className="flex items-center gap-3">
                     <span className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-cyan-100/20 bg-cyan-50 text-sm font-black text-slate-950 shadow-[0_0_24px_rgba(34,211,238,0.24)]">

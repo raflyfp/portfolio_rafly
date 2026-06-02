@@ -62,7 +62,7 @@ export default function ProjectCard({ project, index, skillLogos = {} }) {
                 whileHover={{ y: -8 }}
                 className="group overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.045] shadow-2xl shadow-black/20 backdrop-blur-xl"
             >
-                <div 
+                <div
                     className={`relative aspect-video overflow-hidden bg-zinc-900 ${project.thumbnail ? 'cursor-pointer' : ''}`}
                     onClick={() => project.thumbnail && openModal('image')}
                 >
