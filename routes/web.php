@@ -29,69 +29,64 @@ Route::get('/', function () {
     $content['heroPhotoUrl'] = null;
 
     try {
-        if (Schema::hasTable('users')) {
-            $profileUser = User::query()
-                ->whereNotNull('profile_photo_path')
-                ->orderByRaw("case when username = 'rafly' then 0 else 1 end")
-                ->first(['profile_photo_path']);
+        $profileUser = User::query()
+            ->whereNotNull('profile_photo_path')
+            ->orderByRaw("case when username = 'rafly' then 0 else 1 end")
+            ->first(['profile_photo_path']);
 
-            $content['heroPhotoUrl'] = $profileUser?->profile_photo_path
-                ? Storage::url($profileUser->profile_photo_path)
-                : null;
-        }
+        $content['heroPhotoUrl'] = $profileUser?->profile_photo_path
+            ? Storage::url($profileUser->profile_photo_path)
+            : null;
 
-        if (Schema::hasTable('portfolio_cvs')) {
-            PortfolioCv::seedDefaults();
-            $content['cvFiles'] = PortfolioCv::query()
-                ->orderByRaw("case when language = 'id' then 0 else 1 end")
-                ->get()
-                ->map(fn (PortfolioCv $cv) => [
-                    'language' => $cv->language,
-                    'label' => $cv->language === 'id' ? 'Bahasa Indonesia' : 'English',
-                    'title' => $cv->title,
-                    'download_url' => $cv->download_url,
-                ])
-                ->all();
-        }
+        PortfolioCv::seedDefaults();
+        $content['cvFiles'] = PortfolioCv::query()
+            ->orderByRaw("case when language = 'id' then 0 else 1 end")
+            ->get()
+            ->map(fn (PortfolioCv $cv) => [
+                'language' => $cv->language,
+                'label' => $cv->language === 'id' ? 'Bahasa Indonesia' : 'English',
+                'title' => $cv->title,
+                'download_url' => $cv->download_url,
+            ])
+            ->all();
 
-        if (Schema::hasTable('portfolio_home_contents')) {
-            PortfolioHomeContent::seedDefaults();
-            $content['homeContent'] = PortfolioHomeContent::asArray();
-        }
+        PortfolioHomeContent::seedDefaults();
+        $content['homeContent'] = PortfolioHomeContent::asArray();
 
-        if (Schema::hasTable('portfolio_skills')) {
-            $skills = PortfolioSkill::query()
-                ->orderBy('sort_order')
-                ->orderBy('name')
-                ->get(['name', 'logo_url'])
-                ->map(fn (PortfolioSkill $skill) => [
-                    'name' => $skill->name,
-                    'logo_url' => $skill->logo_url,
-                ])
-                ->all();
+        $skills = PortfolioSkill::query()
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get(['name', 'logo_url'])
+            ->map(fn (PortfolioSkill $skill) => [
+                'name' => $skill->name,
+                'logo_url' => $skill->logo_url,
+            ])
+            ->all();
 
-            $content['skillLogos'] = collect($skills)
-                ->filter(fn ($skill) => filled($skill['logo_url']))
-                ->flatMap(fn ($skill) => [
-                    strtolower($skill['name']) => $skill['logo_url'],
-                    strtolower(str_replace(' JS', '', $skill['name'])) => $skill['logo_url'],
-                ])
-                ->all();
+        $content['skillLogos'] = collect($skills)
+            ->filter(fn ($skill) => filled($skill['logo_url']))
+            ->flatMap(fn ($skill) => [
+                strtolower($skill['name']) => $skill['logo_url'],
+                strtolower(str_replace(' JS', '', $skill['name'])) => $skill['logo_url'],
+            ])
+            ->all();
 
-            $content['skills'] = $skills ?: $content['skills'];
-        }
+        $content['skills'] = $skills ?: $content['skills'];
 
-        if (Schema::hasTable('portfolio_experiences')) {
-            $experiences = PortfolioExperience::query()
-                ->orderBy('sort_order')
-                ->get(['period', 'title', 'description'])
-                ->all();
+        $experiences = PortfolioExperience::query()
+            ->orderBy('sort_order')
+            ->get(['period', 'title', 'description'])
+            ->all();
 
-            $content['experiences'] = $experiences ?: $content['experiences'];
-        }
+        $content['experiences'] = $experiences ?: $content['experiences'];
 
         if (filled(config('services.supabase.url')) && filled(config('services.supabase.key'))) {
-            $projects = collect(app(SupabaseProjectApi::class)->latest())
+            // Cache Supabase API response for 1 hour to prevent slow page load
+            $supabaseProjects = \Illuminate\Support\Facades\Cache::remember('supabase_projects_latest', now()->addHour(), function () {
+                return app(SupabaseProjectApi::class)->latest();
+            });
+
+            $projects = collect($supabaseProjects)
                 ->map(fn (array $project, int $index) => [
                     'name' => $project['title'],
                     'category' => 'Portfolio Project',
@@ -111,7 +106,7 @@ Route::get('/', function () {
                 ->all();
 
             $content['projects'] = $projects ?: $content['projects'];
-        } elseif (Schema::hasTable('portfolio_projects')) {
+        } else {
             $projects = PortfolioProject::query()
                 ->orderBy('sort_order')
                 ->get(['name', 'category', 'description', 'stack', 'video', 'github', 'demo', 'glow'])
@@ -119,7 +114,8 @@ Route::get('/', function () {
 
             $content['projects'] = $projects ?: $content['projects'];
         }
-    } catch (\Throwable) {
+    } catch (\Throwable $e) {
+        // If there's any error (like a missing table during initial setup), it will fallback here
         $content = PortfolioContent::all();
         $content['homeContent'] = PortfolioHomeContent::defaults();
         $content['skillLogos'] = [];
