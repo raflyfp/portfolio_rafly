@@ -7,6 +7,7 @@ import Footer from '../Sections/Footer';
 import HeroSection from '../Sections/HeroSection';
 import ProjectsSection from '../Sections/ProjectsSection';
 import SkillsSection from '../Sections/SkillsSection';
+import GithubSection from '../Sections/GithubSection';
 
 const fallbackSkills = [
     { name: 'Laravel', logo_url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg' },
@@ -52,6 +53,9 @@ const fallbackHomeContent = {
     projects_eyebrow: 'Projects',
     projects_title: 'Showcase project dengan preview video.',
     projects_description: 'Kumpulan project fullstack yang menonjolkan dashboard, automation, data processing, dan management system.',
+    github_eyebrow: 'Contributions',
+    github_title: 'Aktivitas GitHub',
+    github_description: 'Ringkasan kontribusi kode di repositori publik selama setahun terakhir.',
     contact_eyebrow: 'Contact',
     contact_title: 'Siap membangun aplikasi web berikutnya.',
     contact_description: 'Terbuka untuk kolaborasi project dashboard, sistem monitoring, company profile, dan aplikasi management berbasis web.',
@@ -148,6 +152,7 @@ export default function Home({
             <SkillsSection skills={skills} content={homeContent} />
             <ExperienceSection experiences={experiences} content={homeContent} />
             <ProjectsSection projects={projects} content={homeContent} skillLogos={skillLogos} />
+            <GithubSection content={homeContent} />
             <ContactSection content={homeContent} />
             <Footer content={homeContent} />
         </PortfolioLayout>

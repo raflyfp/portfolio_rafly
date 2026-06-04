@@ -42,6 +42,9 @@ const groups = [
             ['projects_eyebrow', 'Projects Eyebrow'],
             ['projects_title', 'Projects Title'],
             ['projects_description', 'Projects Description', 'textarea'],
+            ['github_eyebrow', 'GitHub Eyebrow'],
+            ['github_title', 'GitHub Title'],
+            ['github_description', 'GitHub Description', 'textarea'],
         ],
     },
     {

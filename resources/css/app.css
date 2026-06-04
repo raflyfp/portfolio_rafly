@@ -13,6 +13,19 @@
 
 :root {
     color-scheme: dark;
+    --contribution-level-0: #161b22;
+    --contribution-level-1: #0e4429;
+    --contribution-level-2: #006d32;
+    --contribution-level-3: #26a641;
+    --contribution-level-4: #39d353;
+}
+
+html.theme-light {
+    --contribution-level-0: #ebedf0;
+    --contribution-level-1: #9be9a8;
+    --contribution-level-2: #40c463;
+    --contribution-level-3: #30a14e;
+    --contribution-level-4: #216e39;
 }
 
 html {
