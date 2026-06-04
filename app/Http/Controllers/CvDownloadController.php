@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\PortfolioCv;
 use Illuminate\Support\Facades\Storage;
-use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class CvDownloadController extends Controller
 {
-    public function __invoke(string $language): StreamedResponse
+    public function __invoke(string $language): Response
     {
         abort_unless(in_array($language, ['id', 'en'], true), 404);
 
@@ -19,6 +19,6 @@ class CvDownloadController extends Controller
 
         abort_unless(Storage::disk('public')->exists($cv->file_path), 404);
 
-        return Storage::disk('public')->download($cv->file_path, "{$cv->title}.pdf");
+        return Storage::disk('public')->response($cv->file_path);
     }
 }

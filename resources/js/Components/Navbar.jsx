@@ -99,6 +99,8 @@ export default function Navbar({ cvFiles = [], brandName = 'Rafly.Dev', profileP
                                         <a
                                             key={cv.language}
                                             href={cv.download_url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
                                             onClick={() => setCvOpen(false)}
                                             className="block rounded-xl px-3 py-3 text-sm font-medium text-zinc-300 transition hover:bg-white/[0.06] hover:text-white"
                                         >
@@ -150,6 +152,8 @@ export default function Navbar({ cvFiles = [], brandName = 'Rafly.Dev', profileP
                                 <a
                                     key={cv.language}
                                     href={cv.download_url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     onClick={closeMenu}
                                     className="rounded-2xl px-4 py-3 text-sm font-medium text-zinc-300 transition hover:bg-white/[0.06] hover:text-white"
                                 >

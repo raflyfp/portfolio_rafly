@@ -50,6 +50,8 @@ function CvCard({ cv }) {
                 {cv.download_url && (
                     <a
                         href={cv.download_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] text-zinc-300 transition hover:bg-white/[0.12] hover:text-white"
                         aria-label="Download CV"
                     >
