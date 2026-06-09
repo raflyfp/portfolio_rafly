@@ -105,21 +105,30 @@ export default function ProjectCard({ project, index, skillLogos = {} }) {
                         ))}
                     </div>
 
-                    <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                        <ActionLink href={project.github} icon={Code2} variant="secondary">
-                            GitHub
-                        </ActionLink>
-                        {hasVideo ? (
+                    <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                        {project.github && project.github !== '#' && (
+                            <ActionLink href={project.github} icon={Code2} variant="secondary">
+                                GitHub
+                            </ActionLink>
+                        )}
+                        {project.video && (
                             <button
                                 type="button"
                                 onClick={() => openModal('video')}
-                                className="inline-flex items-center justify-center gap-2 rounded-full border border-cyan-100/25 bg-cyan-50 px-5 py-3 text-sm font-semibold text-slate-950 shadow-[0_0_34px_rgba(34,211,238,0.2)] transition duration-300 hover:bg-cyan-200 hover:shadow-[0_0_44px_rgba(34,211,238,0.34)]"
+                                className={`inline-flex items-center justify-center gap-2 rounded-full border px-5 py-3 text-sm font-semibold transition duration-300 ${
+                                    project.demo && project.demo !== '#'
+                                        ? 'border-white/10 bg-white/[0.055] text-white backdrop-blur-xl hover:border-cyan-100/25 hover:bg-cyan-200/10 hover:shadow-[0_0_34px_rgba(34,211,238,0.16)]'
+                                        : 'border-cyan-100/25 bg-cyan-50 text-slate-950 shadow-[0_0_34px_rgba(34,211,238,0.2)] hover:bg-cyan-200 hover:shadow-[0_0_44px_rgba(34,211,238,0.34)]'
+                                }`}
                             >
-                                Full Preview
+                                {project.demo && project.demo !== '#' ? 'Watch Video' : 'Full Preview'}
                                 <Radio className="h-4 w-4" strokeWidth={2.2} />
                             </button>
-                        ) : (
-                            <ActionLink href={project.demo}>Full Preview</ActionLink>
+                        )}
+                        {project.demo && project.demo !== '#' && (
+                            <ActionLink href={project.demo} variant="primary">
+                                {project.video ? 'Live Demo' : 'Full Preview'}
+                            </ActionLink>
                         )}
                     </div>
                 </div>

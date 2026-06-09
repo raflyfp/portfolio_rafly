@@ -60,6 +60,7 @@ class ProjectController extends Controller
 
         try {
             $this->projects->create($data);
+            \Illuminate\Support\Facades\Cache::forget('supabase_projects_latest');
         } catch (\Throwable $exception) {
             $this->deleteFile($data['video_path'] ?? null);
             $this->deleteFile($data['thumbnail_path'] ?? null);
@@ -94,6 +95,7 @@ class ProjectController extends Controller
 
         try {
             $this->projects->update($project['id'], $data);
+            \Illuminate\Support\Facades\Cache::forget('supabase_projects_latest');
         } catch (\Throwable $exception) {
             $this->deleteFile($data['video_path'] ?? null);
             $this->deleteFile($data['thumbnail_path'] ?? null);
@@ -115,6 +117,7 @@ class ProjectController extends Controller
         $this->deleteFile($project['video_path']);
         $this->deleteFile($project['thumbnail_path']);
         $this->projects->delete($project['id']);
+        \Illuminate\Support\Facades\Cache::forget('supabase_projects_latest');
 
         return back()->with('success', 'Project berhasil dihapus.');
     }
