@@ -115,6 +115,11 @@ Route::get('/', function () {
             $content['projects'] = $projects ?: $content['projects'];
         }
     } catch (\Throwable $e) {
+        // Log the exception to help debug issues in production (e.g. database connection or migrations)
+        \Illuminate\Support\Facades\Log::error('Homepage fallback triggered: ' . $e->getMessage(), [
+            'exception' => $e
+        ]);
+
         // If there's any error (like a missing table during initial setup), it will fallback here
         $content = PortfolioContent::all();
         $content['homeContent'] = PortfolioHomeContent::defaults();

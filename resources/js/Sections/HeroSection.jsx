@@ -43,7 +43,7 @@ const fadeUp = {
 const ORBIT_LIMIT = 8;
 
 function normalizeUrl(value) {
-    if (!value) return '#';
+    if (!value || value.trim() === '#') return '#';
     if (/^https?:\/\//i.test(value)) return value;
     return `https://${value}`;
 }
