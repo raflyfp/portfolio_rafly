@@ -107,7 +107,7 @@ export default function ProjectCard({ project, index, skillLogos = {} }) {
 
                     <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                         {project.github && project.github !== '#' && (
-                            <ActionLink href={project.github} icon={Code2} variant="secondary">
+                            <ActionLink href={project.github} icon={Code2} variant="secondary" target="_blank" rel="noreferrer">
                                 GitHub
                             </ActionLink>
                         )}
@@ -126,7 +126,7 @@ export default function ProjectCard({ project, index, skillLogos = {} }) {
                             </button>
                         )}
                         {project.demo && project.demo !== '#' && (
-                            <ActionLink href={project.demo} variant="primary">
+                            <ActionLink href={project.demo} variant="primary" target="_blank" rel="noreferrer">
                                 {project.video ? 'Live Demo' : 'Full Preview'}
                             </ActionLink>
                         )}
